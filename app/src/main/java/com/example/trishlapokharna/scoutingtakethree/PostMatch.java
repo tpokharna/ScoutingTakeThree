@@ -92,14 +92,15 @@ public class PostMatch extends Fragment {
                 else if (PostMatch.totalPoints.getText().toString().length() == 0) {
                     Toast.makeText(getActivity(), "Add Total Points!", Toast.LENGTH_SHORT).show();
                 }
-               /* else if (Teleop.time1.size() != (Teleop.addNum1.size()) ||Teleop.time1.size() ==0 && (Teleop.addNum1.size()) !=0 || Teleop.time1.size() !=0 && (Teleop.addNum1.size()==0)  ){
+
+                else if (numSpaces(Teleop.highGoalsView.getText().toString()) != numSpaces(Teleop.intervalViewH.getText().toString())  ){
                     Toast.makeText(getActivity(), "Cycle Time and Number of High Goals Do Not Match", Toast.LENGTH_SHORT).show();
 
                 }
-                else if (Teleop.time2.size() != Teleop.addNum2.size() ||Teleop.time2.size() ==0 && (Teleop.addNum2.size()) !=0 || Teleop.time2.size() !=0 && (Teleop.addNum2.size()==0) ){
+                else if (numSpaces(Teleop.lowGoalView.getText().toString()) != numSpaces(Teleop.intervalViewL.getText().toString())  ){
                     Toast.makeText(getActivity(), "Cycle Time and Number of Low Goals Do Not Match", Toast.LENGTH_SHORT).show();
 
-                }*/
+                }
 
                 else if (PostMatch.numPressure.getText().toString().length() == 0){
                     Toast.makeText(getActivity(), "Add kPa!", Toast.LENGTH_SHORT).show();
@@ -174,5 +175,23 @@ public class PostMatch extends Fragment {
             }
         }
     };
+
+
+
+    public static int numSpaces(String str){
+        int spaces = 0; //custom method to remove multiple space
+        StringBuilder sb=new StringBuilder();
+        for(String s: str.split(" ")){
+
+            if(!s.equals("")) {       // ignore space
+                sb.append(s + " ");
+                // add word with 1 space
+                spaces++;
+            }
+
+        }
+        return spaces;
+    }
+
 
 }

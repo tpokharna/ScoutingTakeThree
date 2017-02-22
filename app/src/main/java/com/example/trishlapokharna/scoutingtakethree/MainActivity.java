@@ -14,7 +14,8 @@ import android.view.View;
 
 //This is the launcher activity that house a homepage (Welcome!) and the navigation drawer at the left
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener
+        {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     public void Go(View v) {
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(toInput);
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) { //method for going to another activity
+   public boolean onNavigationItemSelected(MenuItem item) { //method for going to another activity
         // Handle navigation view item clicks here.            use intents to go from one activity to another
         int id = item.getItemId();
 

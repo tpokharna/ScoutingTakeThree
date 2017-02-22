@@ -38,13 +38,15 @@ public class Confirmation extends AppCompatActivity {
     TextView lowGoals;
 
 
-
-    TextView offenseOrDefense;
     TextView gears2;
     TextView highGoals2;
+    String highGoalsss2;
     TextView highGoalsCT;
+    String highGoalsCT2;
     TextView lowGoals2;
+    String lowGoalss2;
     TextView lowGoalsCT;
+    String lowGoalsCT2;
 
 
 
@@ -72,6 +74,9 @@ public class Confirmation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
 
+
+
+
         matchD = (TextView) findViewById(R.id.matchNumberDisplay);
         teamD = (TextView) findViewById(R.id.teamNumberDisplay);
         scouterD = (TextView) findViewById(R.id.scouterNameDisplay);
@@ -83,7 +88,6 @@ public class Confirmation extends AppCompatActivity {
         lowGoals = (TextView) findViewById(R.id.lowGoalDisplay);
 
 
-        offenseOrDefense = (TextView) findViewById(R.id.offenseOrDefenseDisplay1);
         gears2 = (TextView) findViewById(R.id.gearsDisplay2);
         highGoals2 = (TextView) findViewById(R.id.highGoalDisplay1);
         highGoalsCT = (TextView) findViewById(R.id.highGoalConsistencyDisplay1);
@@ -114,7 +118,6 @@ public class Confirmation extends AppCompatActivity {
         highGoals.setText(Autonomous.highGoalView.getText().toString());
         lowGoals.setText(Autonomous.lowGoalView.getText().toString());
 
-        offenseOrDefense.setText(Teleop.offenseOrDefense.getText().toString());
         gears2.setText(Teleop.gearsView.getText().toString());
         highGoals2.setText(Teleop.highGoalsView.getText().toString());
         highGoalsCT.setText(Teleop.intervalViewH.getText().toString());
@@ -190,22 +193,26 @@ public class Confirmation extends AppCompatActivity {
                 writer.append("Team Number, " + Autonomous.teamText.getText().toString() + "\n");
                 writer.append("Match Number, " + Autonomous.matchText.getText().toString() + "\n");
                 writer.append("Scouter Name, " + Autonomous.scouterText.getText().toString() + "\n");
-                writer.append("Cross Baseline, " + getTf(Autonomous.baseLineButton.getText().toString() + "\n "));
+                writer.append("Cross Baseline, " + Autonomous.baseLineButton.getText().toString() + "\n ");
                 writer.append("Auto Gears, " + Autonomous.gearsView.getText().toString() + "\n");
+
+            if (Autonomous.highGoalView.getText().toString().equals("0"))
+                writer.append("Auto High Goal, " + "\n");
+            else
                 writer.append("Auto High Goal, " + Autonomous.highGoalView.getText().toString() + "\n");
-                writer.append("Auto Low Goal, " + Autonomous.lowGoalView.getText().toString() + "\n");
-
-                writer.append("Game Strategy, " + getTf(Teleop.offenseOrDefense.getText().toString()) + "\n");
-                writer.append("Teleop High Goal Shots Per Cycle, " + Teleop.highGoalsView.getText().toString() + "\n");
-                writer.append("Teleop High Goal Shots Cycle Time, " + Teleop.intervalViewH.getText().toString() + "\n");
-                writer.append("Teleop Low Goal Shots Per Cycle, " + Teleop.lowGoalView.getText().toString() + "\n");
-                writer.append("Teleop Low Goal Shots Cycle Time, " + Teleop.intervalViewL.getText().toString() + "\n");
+            if (Autonomous.lowGoalView.getText().toString().equals("0"))
+                writer.append("Auto Low Goal, " + "\n");
+            else
+              writer.append("Auto Low Goal, " + Autonomous.lowGoalView.getText().toString() + "\n");
+                writer.append("Teleop High Goal Shots Per Cycle, " + delSpaces(Teleop.highGoalsView.getText().toString()) + "\n");
+                writer.append("Teleop High Goal Shots Cycle Time, " + delSpaces(Teleop.intervalViewH.getText().toString()) + "\n");
+                writer.append("Teleop Low Goal Shots Per Cycle, " + delSpaces(Teleop.lowGoalView.getText().toString()) + "\n");
+                writer.append("Teleop Low Goal Shots Cycle Time, " + delSpaces(Teleop.intervalViewL.getText().toString()) + "\n");
                 writer.append("Teleop Gears, " + Teleop.gearsView.getText().toString() + "\n");
-
-                writer.append("Reached 40kPa, " + getAb(PostMatch.reach.getText().toString()) + "\n");
-                writer.append("Total Pressure, " + getAb(PostMatch.numPressure.getText().toString()) + "\n");
-                writer.append("Rotors Turning, " + getTf(PostMatch.rotors.getText().toString()) + "\n");
-                writer.append("Takeoff, " + getAb(PostMatch.takeoff.getText().toString()) + "\n");
+                writer.append("Reached 40kPa, " + (PostMatch.reach.getText().toString()) + "\n");
+                writer.append("Total Pressure, " + (PostMatch.numPressure.getText().toString()) + "\n");
+                writer.append("Rotors Turning, " + PostMatch.rotors.getText().toString() + "\n");
+                writer.append("Takeoff, " + getTf(PostMatch.takeoff.getText().toString()) + "\n");
                 writer.append("Total Points, " + PostMatch.totalPoints.getText().toString() + "\n");
                 writer.append("Ranking Points, "+ PostMatch.rankingPoints.getText().toString() + "\n");
                 writer.append("Result, " + myRobo.getResult().toString() + "\n");
@@ -223,6 +230,8 @@ public class Confirmation extends AppCompatActivity {
 
 
         }
+
+
     public String getTf(String str) {
         switch (str) {
             case "Yes":
@@ -232,24 +241,20 @@ public class Confirmation extends AppCompatActivity {
             default:
                 return " ";
         }
+
+    }
+    public static String delSpaces(String str){    //custom method to remove multiple space
+        StringBuilder sb=new StringBuilder();
+        for(String s: str.split(" ")){
+
+            if(!s.equals(""))        // ignore space
+                sb.append(s+" ");       // add word with 1 space
+
+        }
+        return new String(sb.toString());
     }
 
-    public String getAb(String str) {
-        switch (str) {
-            case "None":
-                return "None";
-            case "Very Little":
-                return "Very Little";
-            case "Some":
-                return "Some";
-            case "Most":
-                return "Most";
-            case "All":
-                return "All";
-            default:
-                return " ";
-        }
-    }
+
 
 }
 

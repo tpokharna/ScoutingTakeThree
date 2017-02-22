@@ -28,9 +28,9 @@ import android.widget.ToggleButton;
 //part 3 of input activity
 
 public class PostMatch extends Fragment {
-    ToggleButton win;
-    ToggleButton lose;
-    ToggleButton tie;
+    static ToggleButton win;
+    static ToggleButton lose;
+    static ToggleButton tie;
 
     RoboInfo myRobo = RoboInfo.getInstance();
 
@@ -92,13 +92,29 @@ public class PostMatch extends Fragment {
                 else if (PostMatch.totalPoints.getText().toString().length() == 0) {
                     Toast.makeText(getActivity(), "Add Total Points!", Toast.LENGTH_SHORT).show();
                 }
-                else if (Teleop.time1.size() != Teleop.addNum1.size()){
+               /* else if (Teleop.time1.size() != (Teleop.addNum1.size()) ||Teleop.time1.size() ==0 && (Teleop.addNum1.size()) !=0 || Teleop.time1.size() !=0 && (Teleop.addNum1.size()==0)  ){
                     Toast.makeText(getActivity(), "Cycle Time and Number of High Goals Do Not Match", Toast.LENGTH_SHORT).show();
 
                 }
-                else if (Teleop.time2.size() != Teleop.addNum2.size()){
+                else if (Teleop.time2.size() != Teleop.addNum2.size() ||Teleop.time2.size() ==0 && (Teleop.addNum2.size()) !=0 || Teleop.time2.size() !=0 && (Teleop.addNum2.size()==0) ){
                     Toast.makeText(getActivity(), "Cycle Time and Number of Low Goals Do Not Match", Toast.LENGTH_SHORT).show();
 
+                }*/
+
+                else if (PostMatch.numPressure.getText().toString().length() == 0){
+                    Toast.makeText(getActivity(), "Add kPa!", Toast.LENGTH_SHORT).show();
+                }
+
+                else if (PostMatch.rankingPoints.getText().toString().length() == 0){
+                    Toast.makeText(getActivity(), "Add Ranking Points!", Toast.LENGTH_SHORT).show();
+                }
+
+                else if (PostMatch.rotors.getText().toString().length() == 0){
+                    Toast.makeText(getActivity(), "Add Rotor #!", Toast.LENGTH_SHORT).show();
+                }
+
+                else if(PostMatch.win.isChecked() == false && PostMatch.lose.isChecked() == false && PostMatch.tie.isChecked() == false){
+                    Toast.makeText(getActivity(), "Select win, lose, or tie!", Toast.LENGTH_SHORT).show();
                 }
 
 

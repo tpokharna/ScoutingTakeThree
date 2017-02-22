@@ -141,7 +141,8 @@
                 android:layout_height="wrap_content"
                 android:text="Gears"
                 android:textAppearance="@android:style/TextAppearance.Medium"
-                android:id="@+id/gearTextView" />
+                android:id="@+id/gearTextView"
+                />
 
             <TextView
                 android:layout_width="0dp"
@@ -150,6 +151,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_marginLeft="20dp"
                 android:id="@+id/gearView"
+                android:freezesText="true"
+
                 />
 
         </TableRow>
@@ -235,6 +238,10 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_marginLeft="20dp"
                     android:id="@+id/highGoalView"
+                    android:freezesText="true"
+                    android:text="0"
+
+
                     />
 
             </TableRow>
@@ -274,7 +281,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="0.26"
                     android:layout_height="wrap_content"
-                    android:text="+1O"
+                    android:text="+10"
                     android:padding="20dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/highGoalAddTen" />
@@ -337,10 +344,12 @@
                     android:layout_width="0dp"
                     android:layout_weight=".6"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="0"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_marginLeft="20dp"
                     android:id="@+id/lowGoalView2"
+                    android:freezesText="true"
+
                     />
 
             </TableRow>

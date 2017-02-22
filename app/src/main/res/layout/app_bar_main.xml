@@ -18,10 +18,9 @@ tools:context="com.example.trishlapokharna.scoutingtakethree.MainActivity">
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#8bc34a"
+        android:background="#0094ea"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-    />
-
+        />
 
 </android.support.design.widget.AppBarLayout>
 

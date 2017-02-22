@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +20,6 @@ import java.util.List;
 public class Teleop extends Fragment {
     RoboInfo myRobo = RoboInfo.getInstance();
 
-    static ToggleButton offenseOrDefense;
-
     static TextView gearsView;
 
     Button one;
@@ -31,6 +28,7 @@ public class Teleop extends Fragment {
 
 
     static TextView highGoalsView;
+    Button none1;
     Button five1;
     Button ten1;
     Button twenty1;
@@ -39,13 +37,9 @@ public class Teleop extends Fragment {
     int i = 0;
     String display = " ";
     List<Integer> instance1 = new ArrayList<Integer>();
-    String dis;
-    List <String> instanceString = new ArrayList <String> ();
-   static  List <Integer> addNum1 = new ArrayList <Integer> ();
+    static  List <String> addNum1 = new ArrayList <String> ();
+
     static List <String> time1 = new ArrayList <String> ();
-
-
-
     Button interval1H;
     Button interval2H;
     Button interval3H;
@@ -59,6 +53,7 @@ public class Teleop extends Fragment {
 
 
     static TextView lowGoalView;
+    Button none2;
     Button five2;
     Button ten2;
     Button twenty2;
@@ -67,10 +62,10 @@ public class Teleop extends Fragment {
     int j;
     String display2 = " ";
     List<Integer> instance2 = new ArrayList<Integer>();
-   static List <Integer> addNum2 = new ArrayList <Integer> ();
+    static List <String> addNum2 = new ArrayList <String> ();
+
+
     static List <String> time2 = new ArrayList <String> ();
-
-
     Button interval1L;
     Button interval2L;
     Button interval3L;
@@ -87,7 +82,6 @@ public class Teleop extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
 
         View in = inflater.inflate(R.layout.fragment_teleop, container, false); // FIX THIS -- adds Autonomous tab to input activity
-        offenseOrDefense = (ToggleButton) in.findViewById(R.id.offenseToggleButton);
         gearsView = (TextView) in.findViewById(R.id.gearView1);
 
         one = (Button) in.findViewById(R.id.gearHitButton);
@@ -96,6 +90,7 @@ public class Teleop extends Fragment {
 
 
         highGoalsView = (TextView) in.findViewById(R.id.highGoalView);
+        none1 = (Button) in.findViewById(R.id.highGoalNoneButton);
         five1 = (Button) in.findViewById(R.id.highGoalAddFive);
         ten1 = (Button) in.findViewById(R.id.highGoalAddTen);
         twenty1 = (Button) in.findViewById(R.id.highGoalAddTwenty);
@@ -113,6 +108,7 @@ public class Teleop extends Fragment {
 
 
         lowGoalView = (TextView) in.findViewById(R.id.lowGoalView2);
+        none2 = (Button) in.findViewById(R.id.lowGoalNoneButton);
         five2 = (Button) in.findViewById(R.id.lowGoalAddFiveButton);
         ten2 = (Button) in.findViewById(R.id.lowGoalAddTenButton);
         twenty2 = (Button) in.findViewById(R.id.lowGoalAddTwentyButton);
@@ -157,35 +153,75 @@ public class Teleop extends Fragment {
         //my button clic
 
 //instnace1
-    instance1.add(0);
-    addNum1.add(i);
+    //instance1.add(0);
+       instance1.add(0);
+
+
+        none1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+
+                instance1.clear();
+                instance1.add(0);
+                if (addNum1.size()>=1)
+                    addNum1.remove((addNum1.size() - 1));
+
+                if ((addNum1.size()!=0)) {
+                    if (addNum1.get(addNum1.size()-1) == "0")
+                        i = 0;
+                    else
+                        i = Integer.parseInt(addNum1.get(addNum1.size()-1));
+
+
+                }
+
+                for (String s : addNum1) {
+                    if (s.length() == 1)
+                        display += s + "           ";
+                    if (s.length() == 2)
+                        display += s + "         ";
+                    if (s.length() == 3)
+                        display += s + "        ";
+                    if (s.length() > 4)
+                        display += s + "       ";
+                }
+
+                highGoalsView.setText(display);
+                display = " ";
+
+
+
+
+
+            }
+        });
+
+
 
 
         five1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (addNum1.size() == 0 )
+                    addNum1.add(String.valueOf(i));
+
                 i += 5;
 
-                /*if (highGoalsView.getText().toString().length()-2 > 0) {
-                    val = highGoalsView.getText().toString().substring(0, highGoalsView.getText().toString().length() - 2);
-                    highGoalsView.setText(val);
-                    highGoalsView.append(String.valueOf(i));
-
-
-                }
-                else
-                highGoalsView.setText(String.valueOf(i)); */
-                //adding instance to new
 
                 instance1.add(i);
-                dis +="a";
-                addNum1.set(addNum1.size()-1, i);
+                addNum1.set(addNum1.size()-1, String.valueOf(i));
 
-                for (Integer s : addNum1) {
-                    display += String.valueOf(s) + "        ";
+                for (String s : addNum1) {
+                    if (s.length() == 1)
+                        display += s + "           ";
+                    if (s.length() == 2)
+                        display += s + "         ";
+                    if (s.length() == 3)
+                        display += s + "        ";
+                    if (s.length()> 4)
+                        display += s + "       ";
                 }
-
                 highGoalsView.setText(display);
-                display = "";
+                display = " ";
 
 
             }
@@ -193,17 +229,25 @@ public class Teleop extends Fragment {
         });
         ten1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (addNum1.size() == 0 )
+                    addNum1.add(String.valueOf(i));
+
                 i += 10;
                 instance1.add(i);
-                dis+="b";
-                addNum1.set(addNum1.size()-1, i);
+                addNum1.set(addNum1.size()-1, String.valueOf(i));
 
-                for (Integer s : addNum1) {
-                    display += String.valueOf(s) + "        ";
+                for (String s : addNum1) {
+                    if (s.length() == 1)
+                        display += s + "           ";
+                    if (s.length() == 2)
+                        display += s + "         ";
+                    if (s.length() == 3)
+                        display += s + "        ";
+                    if (s.length()> 4)
+                        display += s + "       ";
                 }
-
                 highGoalsView.setText(display);
-                display = "";
+                display = " ";
 
 
 
@@ -214,26 +258,28 @@ public class Teleop extends Fragment {
         });
         twenty1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (addNum1.size() == 0 )
+                    addNum1.add(String.valueOf(i));
+
+
                 i += 20;
-               /* if (highGoalsView.getText().toString().length()-2 > 0){
-                val=highGoalsView.getText().toString().substring(0, highGoalsView.getText().toString().length() - 2);
-                highGoalsView.setText(val);
-                highGoalsView.append(String.valueOf(i)); }
-                else
-                highGoalsView.setText(String.valueOf(i));
 
-                number1.add(i);*/
                 instance1.add(i);
-                dis+="c";
-                addNum1.set(addNum1.size()-1, i);
+                addNum1.set(addNum1.size()-1, String.valueOf(i));
 
-                for (Integer s : addNum1) {
-                    display += String.valueOf(s) + "        ";
+                for (String s : addNum1) {
+                    if (s.length() == 1)
+                        display += s + "           ";
+                    if (s.length() == 2)
+                        display += s + "         ";
+                    if (s.length() == 3)
+                        display += s + "        ";
+                    if (s.length()> 4)
+                        display += s + "       ";
                 }
 
-
                 highGoalsView.setText(display);
-                display = "";
+                display = " ";
 
             }
 
@@ -241,83 +287,75 @@ public class Teleop extends Fragment {
 //DELETE DOES NOT WORK
         delete1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                if (instance1.size() > 1 ) {
+            public void onClick(View v) {
+                if (instance1.size() > 1) {
                     instance1.remove(instance1.size() - 1);
-                    i = instance1.get(instance1.size()-1);
-                    addNum1.remove(addNum1.size()-1);
-                    addNum1.add(instance1.get(instance1.size()-1));
+                    i = instance1.get(instance1.size() - 1);
+                    addNum1.remove(addNum1.size() - 1);
+                    addNum1.add(String.valueOf(i));
 
 
-                    for (Integer s : addNum1) {
-                        display += String.valueOf(s) + "        ";
+                    for (String s : addNum1) {
+                        if (s.length() == 1)
+                            display += s + "           ";
+                        if (s.length() == 2)
+                            display += s + "         ";
+                        if (s.length() == 3)
+                            display += s + "        ";
+                        if (s.length()> 4)
+                            display += s + "       ";
                     }
-
-
                     highGoalsView.setText(display);
-                    display = "";
+                    display = " ";
 
                 }
 
-                if (instance1.size() == 1){
+
+
+
+                if (instance1.size() == 1) {
                     instance1.clear();
-                    i = 0;
-                    addNum1.set(addNum1.size() - 1, 0);
-                    for (Integer s : addNum1) {
-                        display += String.valueOf(s) + "         ";
-                    }
+                    instance1.add(0);
+                    if (addNum1.size()>= 1)
 
+                        addNum1.remove((addNum1.size() - 1));
+                    addNum1.add( String.valueOf("0"));
+
+                    for (String s : addNum1) {
+                        if (s.length() == 1)
+                            display += s + "           ";
+                        if (s.length() == 2)
+                            display += s + "         ";
+                        if (s.length() == 3)
+                            display += s + "        ";
+                        if (s.length() > 4)
+                            display += s + "       ";
+                    }
 
                     highGoalsView.setText(display);
-                    display = "";
+                    display = " ";
 
                 }
-               /* if (instance1.size() == 1 ){
-                        if (instanceString.get(instanceString.size()-1).substring(instanceString.get(instanceString.size()-1).length()-2, instanceString.get(instanceString.size()-1).length()-1)=="a" ) {
-                            addNum1.set(addNum1.size() - 1, addNum1.get(addNum1.size() - 1) - 5);
-                            for (Integer s : addNum1) {
-                                display += String.valueOf(s) + "         ";
-                            }
-                            //instanceString.get(instanceString.size()-1)
-                            highGoalsView.setText(display);
-                        }
-                    if (instanceString.get(instanceString.size()-1).substring(instanceString.get(instanceString.size()-1).length()-2, instanceString.get(instanceString.size()-1).length()-1)=="b" ) {
-                        addNum1.set(addNum1.size() - 1, addNum1.get(addNum1.size() - 1) - 10);
-                        for (Integer s : addNum1) {
-                            display += String.valueOf(s) + "         ";
 
 
-                        }
-                        highGoalsView.setText(display);
-                    }
-                    if (instanceString.get(instanceString.size()-1).substring(instanceString.get(instanceString.size()-1).length()-2, instanceString.get(instanceString.size()-1).length()-1)=="c" ) {
-                        addNum1.set(addNum1.size() - 1, addNum1.get(addNum1.size() - 1) - 20);
-                        for (Integer s : addNum1) {
-                            display += String.valueOf(s) + "         ";
 
-
-                        }
-                        highGoalsView.setText(display);
-                    }
-                }*/
             }
         });
         sub1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                instanceString.add(dis);
                 i = 0;
                 instance1.clear();
+                instance1.add(i);
 
-                addNum1.add(i);
-                for (Integer s : addNum1) {
+                addNum1.add("0");
+                for (String s : addNum1) {
                     display += String.valueOf(s) + "         ";
                 }
 
                 highGoalsView.setText(display);
-                display = "";
+                display = " ";
 
             }
         });
@@ -332,7 +370,7 @@ public class Teleop extends Fragment {
             public void onClick(View v) {
 
                 intervalViewH.append("00-05    ");
-                time1.add("00-05    ");
+                time1.add("00-05 ");
             }
         });
 
@@ -340,7 +378,7 @@ public class Teleop extends Fragment {
             @Override
             public void onClick(View v) {
                 intervalViewH.append("06-10    ");
-                time1.add("00-05    ");
+                time1.add("06-10 ");
 
             }
         });
@@ -349,7 +387,7 @@ public class Teleop extends Fragment {
             @Override
             public void onClick(View v) {
                 intervalViewH.append("11-15    ");
-                time1.add("00-05    ");
+                time1.add("11-15 ");
 
             }
         });
@@ -358,7 +396,7 @@ public class Teleop extends Fragment {
             @Override
             public void onClick(View v) {
                 intervalViewH.append("16-20    ");
-                time1.add("00-05    ");
+                time1.add("16-20 ");
 
             }
         });
@@ -367,7 +405,7 @@ public class Teleop extends Fragment {
             @Override
             public void onClick(View v) {
                 intervalViewH.append("21-25    ");
-                time1.add("00-05    ");
+                time1.add("21-25 ");
 
             }
         });
@@ -386,23 +424,73 @@ public class Teleop extends Fragment {
         });
 
 
-
-
-
         instance2.add(0);
-        addNum2.add(j);
 
 
-       five2.setOnClickListener(new View.OnClickListener() {
+
+        none2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                j += 5;
-                instance1.add(j);
-                addNum2.set(addNum2.size()-1, j);
 
-                for (Integer s : addNum2) {
-                    display2 += String.valueOf(s) + " ";
+
+                    instance2.clear();
+                    instance2.add(0);
+                if (addNum2.size()>=1)
+                    addNum2.remove((addNum2.size() - 1));
+
+                if ((addNum2.size()!=0)) {
+                    if (addNum2.get(addNum2.size()-1) == "0")
+                        j = 0;
+                    else
+                    j = Integer.parseInt(addNum2.get(addNum2.size()-1));
+
+
                 }
 
+                    for (String s : addNum2) {
+                        if (s.length() == 1)
+                            display2 += s + "           ";
+                        if (s.length() == 2)
+                            display2 += s + "         ";
+                        if (s.length() == 3)
+                            display2 += s + "        ";
+                        if (s.length() > 4)
+                            display2 += s + "       ";
+                    }
+
+                    lowGoalView.setText(display2);
+                    display2 = " ";
+
+
+
+
+
+            }
+        });
+
+
+
+
+        five2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (addNum2.size() == 0 )
+                    addNum2.add(String.valueOf(j));
+
+                j += 5;
+
+
+                instance2.add(j);
+                addNum2.set(addNum2.size()-1, String.valueOf(j));
+
+                for (String s : addNum2) {
+                    if (s.length() == 1)
+                        display2 += s + "           ";
+                    if (s.length() == 2)
+                        display2 += s + "         ";
+                    if (s.length() == 3)
+                        display2 += s + "        ";
+                    if (s.length()> 4)
+                        display2 += s + "       ";
+                }
                 lowGoalView.setText(display2);
                 display2 = " ";
 
@@ -412,16 +500,23 @@ public class Teleop extends Fragment {
         });
         ten2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (addNum2.size() == 0 )
+                    addNum2.add(String.valueOf(j));
+
                 j += 10;
                 instance2.add(j);
+                addNum2.set(addNum2.size()-1, String.valueOf(j));
 
-
-                addNum2.set(addNum2.size()-1, j);
-
-                for (Integer s : addNum2) {
-                    display2 += String.valueOf(s) + "        ";
+                for (String s : addNum2) {
+                    if (s.length() == 1)
+                        display2 += s + "           ";
+                    if (s.length() == 2)
+                        display2 += s + "         ";
+                    if (s.length() == 3)
+                        display2 += s + "        ";
+                    if (s.length()> 4)
+                        display2 += s + "       ";
                 }
-
                 lowGoalView.setText(display2);
                 display2 = " ";
 
@@ -434,17 +529,28 @@ public class Teleop extends Fragment {
         });
         twenty2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                j += 20;
-                instance2.add(j);
-                addNum2.set(addNum2.size()-1, j);
+                if (addNum2.size() == 0 )
+                    addNum2.add(String.valueOf(j));
 
-                for (Integer s : addNum2) {
-                    display2 += String.valueOf(s) + "        ";
+
+                j += 20;
+
+                instance2.add(j);
+                addNum2.set(addNum2.size()-1, String.valueOf(j));
+
+                for (String s : addNum2) {
+                    if (s.length() == 1)
+                        display2 += s + "           ";
+                    if (s.length() == 2)
+                        display2 += s + "         ";
+                    if (s.length() == 3)
+                        display2 += s + "        ";
+                    if (s.length()> 4)
+                        display2 += s + "       ";
                 }
 
-
                 lowGoalView.setText(display2);
-                display2 = "";
+                display2 = " ";
 
             }
 
@@ -457,63 +563,90 @@ public class Teleop extends Fragment {
                     instance2.remove(instance2.size() - 1);
                     j = instance2.get(instance2.size() - 1);
                     addNum2.remove(addNum2.size() - 1);
-                    addNum2.add(instance2.get(instance2.size() - 1));
+                    addNum2.add(String.valueOf(j));
 
 
-                    for (Integer s : addNum2) {
-                        display2 += String.valueOf(s) + "        ";
+                    for (String s : addNum2) {
+                        if (s.length() == 1)
+                            display2 += s + "           ";
+                        if (s.length() == 2)
+                            display2 += s + "         ";
+                        if (s.length() == 3)
+                            display2 += s + "        ";
+                        if (s.length()> 4)
+                            display2 += s + "       ";
                     }
-
-
                     lowGoalView.setText(display2);
-                    display2 = "";
+                    display2 = " ";
 
                 }
+
 
 
                 if (instance2.size() == 1) {
                     instance2.clear();
-                    j = 0;
-                    addNum2.set(addNum2.size() - 1, 0);
+                    instance2.add(0);
+                    if (addNum2.size()>= 1)
 
-                    for (Integer s : addNum2) {
-                        display2 += String.valueOf(s) + "        ";
+                        addNum2.remove((addNum2.size() - 1));
+                    addNum2.add( String.valueOf("0"));
+
+                    for (String s : addNum2) {
+                        if (s.length() == 1)
+                            display2 += s + "           ";
+                        if (s.length() == 2)
+                            display2 += s + "         ";
+                        if (s.length() == 3)
+                            display2 += s + "        ";
+                        if (s.length() > 4)
+                            display2 += s + "       ";
                     }
 
-
                     lowGoalView.setText(display2);
-                    display2 = "";
+                    display2 = " ";
 
                 }
-            }
 
+
+
+            }
         });
         sub2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-
                 j = 0;
-                for (int k = instance2.size() - 1; k > 0; k--){
-                    instance2.remove(k);
-                }
+                instance2.clear();
+                instance2.add(j);
 
-                addNum2.add(j);
-                for (Integer s : addNum2) {
-                    display2 += String.valueOf(s) + "        ";
+                addNum2.add("0");
+                for (String s : addNum2) {
+                    display2 += String.valueOf(s) + "         ";
                 }
 
                 lowGoalView.setText(display2);
-                display2 = "";
+                display2 = " ";
 
             }
         });
+
+
+
+
+
+
+
+
+
+
+
+
 
         interval1L.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intervalViewL.append("00-05    ");
-                time2.add("00-05    ");
+                time2.add("00-05 ");
             }
         });
 
@@ -521,7 +654,7 @@ public class Teleop extends Fragment {
             @Override
             public void onClick(View v) {
                 intervalViewL.append("06-10    ");
-                time2.add("06-10    ");
+                time2.add("06-10 ");
 
             }
         });
@@ -530,7 +663,7 @@ public class Teleop extends Fragment {
             @Override
             public void onClick(View v) {
                 intervalViewL.append("11-15    ");
-                time2.add("11-15    ");
+                time2.add("11-15 ");
             }
         });
 
@@ -538,7 +671,7 @@ public class Teleop extends Fragment {
             @Override
             public void onClick(View v) {
                 intervalViewL.append("16-20    ");
-                time2.add("16-20    ");
+                time2.add("16-20 ");
 
             }
         });
@@ -547,7 +680,7 @@ public class Teleop extends Fragment {
             @Override
             public void onClick(View v) {
                 intervalViewL.append("21-25    ");
-                time2.add("21-25    ");
+                time2.add("21-25 ");
 
             }
         });

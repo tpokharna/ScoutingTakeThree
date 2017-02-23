@@ -113,8 +113,8 @@ public class Confirmation extends AppCompatActivity {
         matchD.setText(Autonomous.matchText.getText().toString());
         teamD.setText(Autonomous.teamText.getText().toString());
         scouterD.setText(Autonomous.scouterText.getText().toString());
-        baseline.setText(Autonomous.baseLineButton.getText().toString());
-        gears.setText(Autonomous.gearsView.getText().toString());
+        baseline.setText(Autonomous.baselineButton.getText().toString());
+        gears.setText(Autonomous.gearView.getText().toString());
         highGoals.setText(Autonomous.highGoalView.getText().toString());
         lowGoals.setText(Autonomous.lowGoalView.getText().toString());
 
@@ -193,8 +193,8 @@ public class Confirmation extends AppCompatActivity {
                 writer.append("Team Number, " + Autonomous.teamText.getText().toString() + "\n");
                 writer.append("Match Number, " + Autonomous.matchText.getText().toString() + "\n");
                 writer.append("Scouter Name, " + Autonomous.scouterText.getText().toString() + "\n");
-                writer.append("Cross Baseline, " + Autonomous.baseLineButton.getText().toString() + "\n ");
-                writer.append("Auto Gears, " + Autonomous.gearsView.getText().toString() + "\n");
+                writer.append("Cross Baseline, " + Autonomous.baselineButton.getText().toString() + "\n ");
+                writer.append("Auto Gears, " + Autonomous.gearView.getText().toString() + "\n");
 
             if (Autonomous.highGoalView.getText().toString().equals("0"))
                 writer.append("Auto High Goal, " + "\n");

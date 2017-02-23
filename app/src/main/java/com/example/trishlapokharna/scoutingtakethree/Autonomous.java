@@ -1,6 +1,5 @@
 package com.example.trishlapokharna.scoutingtakethree;
 
-
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,259 +13,72 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
 import java.util.ArrayList;
 import java.util.List;
 
 //part 1 of input activity
-//IN XML FOR SPINNER, REMOVED THE CONTNET
-//FOR MAIN THINGS, CHANGED THE APP THEMES
-//IDK IF THIS IS HOW TO CORRECTLY ADD FRAGMENT
-//SOMETHING WRONG WITH ARRAY FOR SPINER
-public class Autonomous extends Fragment  {
+public class Autonomous extends Fragment{
 
     RoboInfo myRobo = RoboInfo.getInstance();
-    // String matchT;
-    // String teamT;
-
-   // TextView gearTextView;
-
-    Button gearHit;
-    Button gearMiss;
-    Button gearDelete;
-
-    Button addFive1;
-    Button addTen1;
-    Button addTwenty1;
-    Button addOne1;
-    Button del1;
-
-    Button addOne2;
-    Button addFive2;
-    Button addTen2;
-    Button addTwenty2;
-    Button del2;
-
-    int i;
-    int j;
-
-    List<Integer> instance1 = new ArrayList<Integer>();
-    List<Integer> instance2 = new ArrayList<Integer>();
-
-
-
-    static TextView highGoalView;
-    static TextView gearsView;
-    static TextView lowGoalView;
-   // Button submit;
 
     static EditText matchText;
     static EditText teamText;
     static EditText scouterText;
-    static ToggleButton baseLineButton;
-  //  TextView highGoal;
-  //  TextView lowGoal;
-    static TextView baselineText;
 
+    static ToggleButton baselineButton;
 
+    static TextView gearView;
+    Button gearHitButton;
+    Button gearMissButton;
+    Button gearBackButton;
 
-    private RoboInfo autoInfo = new RoboInfo();
+    static TextView highGoalView;
+    Button highGoalOneButton;
+    Button highGoalFiveButton;
+    Button highGoalTenButton;
+    Button highGoalTwentyButton;
+    Button highGoalDelButton;
+
+    static TextView lowGoalView;
+    Button lowGoalOneButton;
+    Button lowGoalFiveButton;
+    Button lowGoalTenButton;
+    Button lowGoalTwentyButton;
+    Button lowGoalDelButton;
+
+    int i;
+    int j;
+    List<Integer> instanceHigh = new ArrayList<Integer>();
+    List<Integer> instanceLow = new ArrayList<Integer>();
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         View in = inflater.inflate(R.layout.fragment_autonomous, container, false); // adds Autonomous tab to input activity
 
+        matchText = (EditText)in.findViewById(R.id.matchText);
+        teamText = (EditText)in.findViewById(R.id.teamText);
+        scouterText = (EditText)in.findViewById(R.id.scouterText);
 
+        baselineButton = (ToggleButton) in.findViewById(R.id.baselineToggleButton);
 
-        matchText = (EditText)in.findViewById(R.id.matchNumberEdit);
-        teamText = (EditText)in.findViewById(R.id.teamNumberEdit);
-        scouterText = (EditText)in.findViewById(R.id.scouterNameEdit);
-        baseLineButton = (ToggleButton) in.findViewById(R.id.baselineToggleButton);
-        gearsView = (TextView) in.findViewById(R.id.gearView);
-       // highGoal = (TextView) in.findViewById(R.id.highGoalTextView1);
-       // lowGoal = (TextView) in.findViewById(R.id.lowGoalTextView);
-        baselineText = (TextView) in.findViewById(R.id.baselineTextView);
-        //gearTextView = (TextView) in.findViewById(R.id.gearTextView);
+        gearView = (TextView) in.findViewById(R.id.gearView);
+        gearHitButton = (Button) in.findViewById(R.id.gearHitButton);
+        gearMissButton = (Button) in.findViewById(R.id.gearMissButton);
+        gearBackButton = (Button) in.findViewById(R.id.gearBackButton);
+
         highGoalView = (TextView) in.findViewById (R.id.highGoalView);
-        lowGoalView = (TextView) in.findViewById (R.id.lowGoalView2);
+        highGoalOneButton = (Button) in.findViewById(R.id.highGoalOneButton);
+        highGoalFiveButton = (Button) in.findViewById(R.id.highGoalFiveButton);
+        highGoalTenButton = (Button) in.findViewById(R.id.highGoalTenButton);
+        highGoalTwentyButton = (Button) in.findViewById(R.id.highGoalTwentyButton);
+        highGoalDelButton = (Button) in.findViewById(R.id.highGoalDelButton);
 
-        i = 0;
-        j = 0;
-
-
-
-
-
-        //set up radiogroup-like behaviors for toggle buttons
-
-        gearHit = (Button) in.findViewById(R.id.gearHitButton);
-        gearMiss = (Button) in.findViewById(R.id.gearMissButton);
-        gearDelete = (Button) in.findViewById(R.id.gearBackButton);
-
-        addOne1 = (Button) in.findViewById(R.id.highGoalAddOne);
-        addFive1 = (Button) in.findViewById(R.id.highGoalAddFive);
-        addTen1 = (Button) in.findViewById(R.id.highGoalAddTen);
-        addTwenty1 = (Button) in.findViewById(R.id.highGoalAddTwenty);
-        del1 = (Button) in.findViewById(R.id.highGoalDel);
-        addOne2 = (Button) in.findViewById(R.id.lowGoalAddOne);
-        addFive2 = (Button) in.findViewById(R.id.lowGoalAddFive);
-        addTen2 = (Button) in.findViewById(R.id.lowGoalAddTen);
-        addTwenty2 = (Button) in.findViewById(R.id.lowGoalAddTwenty);
-        del2 = (Button) in.findViewById(R.id.lowGoalDel);
-
-
-
-        //addItemsOnSpinnerB();
-        //addItemsOnSpinnerD();
-
-        gearHit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gearsView.append("1 ");
-            }
-        });
-
-        gearMiss.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gearsView.append("0 ");
-            }
-        });
-
-        gearDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (gearsView.getText().length() > 0) {
-                    gearsView.setText(gearsView.getText().subSequence(0, gearsView.getText().length() - 2));
-                }
-            }
-        });
-
-
-
-
-
-
-        addOne1.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v){
-                i = Integer.parseInt(highGoalView.getText().toString()) + 1;
-                highGoalView.setText(String.valueOf(i));
-                instance1.add(i);
-
-            }
-
-        });
-        addFive1.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v){
-                i = Integer.parseInt(highGoalView.getText().toString()) + 5;
-                highGoalView.setText(String.valueOf(i));
-                instance1.add(i);
-
-            }
-
-        });
-        addTen1.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v){
-                i = Integer.parseInt(highGoalView.getText().toString()) + 10;
-                highGoalView.setText(String.valueOf(i));
-                instance1.add(i);
-
-            }
-
-        });
-        addTwenty1.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v){
-                i = Integer.parseInt(highGoalView.getText().toString()) + 20;
-                highGoalView.setText(String.valueOf(i));
-                instance1.add(i);
-
-            }
-
-        });
-
-        del1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-               if (instance1.size() > 1 ) {
-                   instance1.remove(instance1.size() - 1);
-                   i = instance1.get(instance1.size() - 1);
-                   highGoalView.setText(String.valueOf(i));
-               }
-
-                if (instance1.size() == 1){
-                    instance1.clear();
-                    i = 0;
-                    highGoalView.setText(String.valueOf(i));
-                }
-            }
-        });
-
-
-
-        addOne2.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v){
-                j = Integer.parseInt(lowGoalView.getText().toString()) + 1;
-                lowGoalView.setText(String.valueOf(j));
-                instance2.add(j);
-
-            }
-
-        });
-        addFive2.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v){
-                j = Integer.parseInt(lowGoalView.getText().toString()) + 5;
-
-                lowGoalView.setText(String.valueOf(j));
-                instance2.add(j);
-
-            }
-
-        });
-        addTen2.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v){
-                j = Integer.parseInt(lowGoalView.getText().toString()) + 10;
-                lowGoalView.setText(String.valueOf(j));
-                instance2.add(j);
-
-            }
-
-        });
-        addTwenty2.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v){
-                j = Integer.parseInt(lowGoalView.getText().toString()) + 20;
-                lowGoalView.setText(String.valueOf(j));
-                instance2.add(j);
-
-            }
-
-        });
-
-        del2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                if (instance2.size()> 1) {
-                    instance2.remove(instance2.size() - 1);
-                    j = instance2.get(instance2.size() - 1);
-                    lowGoalView.setText(String.valueOf(j));
-                }
-                if (instance2.size() == 1){
-                    instance2.clear();
-                    j = 0;
-                    lowGoalView.setText(String.valueOf(j));
-                }
-            }
-        });
-
-
-
-
-
-
-
-
-
+        lowGoalView = (TextView) in.findViewById (R.id.lowGoalView);
+        lowGoalOneButton = (Button) in.findViewById(R.id.lowGoalOneButton);
+        lowGoalFiveButton = (Button) in.findViewById(R.id.lowGoalFiveButton);
+        lowGoalTenButton = (Button) in.findViewById(R.id.lowGoalTenButton);
+        lowGoalTwentyButton = (Button) in.findViewById(R.id.lowGoalTwentyButton);
+        lowGoalDelButton = (Button) in.findViewById(R.id.lowGoalDelButton);
 
         matchText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -304,32 +116,130 @@ public class Autonomous extends Fragment  {
             }
         });
 
+        //gear buttons
+        gearHitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gearView.append("1 ");
+            }
+        });
+
+        gearMissButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gearView.append("0 ");
+            }
+        });
+
+        gearBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (gearView.getText().length() > 0) {
+                    gearView.setText(gearView.getText().subSequence(0, gearView.getText().length() - 2));
+                }
+            }
+        });
+
+        //high goal buttons
+        highGoalOneButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                i = Integer.parseInt(highGoalView.getText().toString()) + 1;
+                highGoalView.setText(String.valueOf(i));
+                instanceHigh.add(i);
+            }
+        });
+
+        highGoalFiveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                i = Integer.parseInt(highGoalView.getText().toString()) + 5;
+                highGoalView.setText(String.valueOf(i));
+                instanceHigh.add(i);
+            }
+        });
+
+        highGoalTenButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                i = Integer.parseInt(highGoalView.getText().toString()) + 10;
+                highGoalView.setText(String.valueOf(i));
+                instanceHigh.add(i);
+            }
+        });
+
+        highGoalTwentyButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                i = Integer.parseInt(highGoalView.getText().toString()) + 20;
+                highGoalView.setText(String.valueOf(i));
+                instanceHigh.add(i);
+            }
+        });
+
+        highGoalDelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if (instanceHigh.size() > 1 ) {
+                    instanceHigh.remove(instanceHigh.size() - 1);
+                    i = instanceHigh.get(instanceHigh.size() - 1);
+                    highGoalView.setText(String.valueOf(i));
+                }
+
+                if (instanceHigh.size() == 1){
+                    instanceHigh.clear();
+                    i = 0;
+                    highGoalView.setText(String.valueOf(i));
+                }
+            }
+        });
+
+        //low goal buttons
+        lowGoalOneButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                j = Integer.parseInt(highGoalView.getText().toString()) + 1;
+                lowGoalView.setText(String.valueOf(j));
+                instanceLow.add(j);
+            }
+        });
+
+        lowGoalFiveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                j = Integer.parseInt(highGoalView.getText().toString()) + 5;
+                lowGoalView.setText(String.valueOf(j));
+                instanceLow.add(j);
+            }
+        });
+
+        lowGoalTenButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                j = Integer.parseInt(highGoalView.getText().toString()) + 10;
+                lowGoalView.setText(String.valueOf(j));
+                instanceLow.add(j);
+            }
+        });
+
+        lowGoalTwentyButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                j = Integer.parseInt(highGoalView.getText().toString()) + 20;
+                lowGoalView.setText(String.valueOf(j));
+                instanceLow.add(j);
+            }
+        });
+
+        lowGoalDelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if (instanceLow.size()> 1) {
+                    instanceLow.remove(instanceLow.size() - 1);
+                    j = instanceLow.get(instanceLow.size() - 1);
+                    lowGoalView.setText(String.valueOf(j));
+                }
+                if (instanceLow.size() == 1){
+                    instanceLow.clear();
+                    j = 0;
+                    lowGoalView.setText(String.valueOf(j));
+                }
+            }
+        });
         return in;
     }
-
-
-
-      /*  @Override
-        public RoboInfo getData() {
-            this.autoInfo.matchT = this.matchT; // Assuming subcon has been updated.. else use txt1.getText();
-            return this.autoInfo;
-        }
-
-        @Override
-        public void setData(RoboInfo workData) {
-            this.autoInfo = workData;
-            // Update this page's views with the workData...
-            // This assumes the fragment has already been created and txt1 is set to a view
-            this.matchT = workData.matchT; // Actually could just use subCon in workData, but be aware that workData actually points to the Activity's copy (kinda makes getdata redundant.. but I like symmetry and couldn't be bothered making lots of copies of the object).
-        }
-
-        public static Autonomous newInstance(String a)
-        {
-            Autonomous fragment=new Autonomous();
-            Bundle bundle=new Bundle();
-            bundle.putString("a", "matchText");
-            fragment.setArguments(bundle);
-            return fragment;
-        } */
-
 }
